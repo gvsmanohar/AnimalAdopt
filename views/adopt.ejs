@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head'); %>
+    <script src="/javascripts/adopt.js"></script>
+    <script src="/javascripts/animal.js"></script>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+
+<div id="animal-container">
+<header>
+    <%- include('./partials/header'); %>
+</header>
+
+<main>
+    <div class="container search-container">
+        <div class="ad-header"><h1>Find a Pet</h1></div>
+    <div class="row an-row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="adoptsearch">
+        <form id="search-animal-form" onsubmit="searchanimal()" method="POST" role="form">
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 form-group">
+                <label for="searchanimaltype"><span class="glyphicon glyphicon-knight"></span> Animal Type *</label>
+                <input type="text" class="form-control" id="searchanimaltype" name="searchanimaltype" placeholder="Enter the type" required>
+            </div>
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 form-group">
+                <label for="searchanimallocation"><span class="glyphicon glyphicon-map-marker"></span> Location *</label>
+                <input type="text" class="form-control" id="searchanimallocation" name="searchanimallocation" placeholder="Name of the place" required>
+            </div>
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 form-group">
+                <label for="searchanimalage"><span class="glyphicon glyphicon-time"></span> Age of animal *</label>
+                <select name="searchanimalage" class="form-control ui dropdown" placeholder="Animal Age" id="searchanimalage" required>
+                    <option value="" disabled selected></option>
+                    <option value="Baby">Baby</option>
+                    <option value="Young">Young</option>
+                    <option value="Adult">Adult</option>
+                    <option value="Senior">Senior</option>
+                </select>
+            </div>
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 form-group">
+                <label for="searchanimalgender"><span class="glyphicon glyphicon-bookmark"></span> Gender of animal *</label>
+                <select id="searchanimalgender" name="searchanimalgender" class="form-control dropdown" required>
+                    <option value=""></option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <!--<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 form-group">
+                <label for="searchanimalkeywords"><span class="glyphicon glyphicon-tags"></span> &nbsp Keywords</label>
+                <input type="text" class="form-control" id="searchanimalkeywords" name="searchanimalkeywords" pattern="^[a-zA-Z, ]+$" placeholder="Enter breed, color etc.(comma separated)">
+            </div>-->
+            <div class="animal-btn col-xs-12 col-sm-12 col-md-12 col-lg-12"><button type="submit" aria-label="Search animals" class="search-animal-btn btn btn-block">Search</button></div>
+        </form>
+        </div>
+    </div>
+    </div>
+
+    <div class="container-fluid" id="search-results" style="display:none;">
+        <hr>
+        <div class="sr-msg" style="display:none;">No animals to display. Please try other options for the search.</div>
+        <div class='row an-row'>
+            <div id="faceted-search" class="col-xs-6 col-sm-3 col-md-3 col-lg-3 col-xl-2">
+                <div>Animal Type</div>
+                <ul class="list-group">
+                    <li id="" aria-label="" class="list-group-item">
+                        <span class=""><label><input id="fac-atp-main" type="checkbox" name="fca-atp-main" value="" checked></label></span>
+                        <span id="fac-animal-type">Dog</span>
+                    </li>
+                    <li id="" aria-label="" class="list-group-item">
+                        <span class=""><label><input id="fca-atp-other" type="checkbox" name="fca-atp-other" value="other"></label></span>
+                        <span class="">All other type</span>
+                    </li>
+                </ul>
+                <div>Animal location</div>
+                <ul class="list-group">
+                    <li id="" aria-label="" class="list-group-item">
+                        <span class=""><label><input type="checkbox" id="fac-al-main" name="fac-al-main" value="" checked></label></span>
+                        <span id="fac-animal-location">Sheffield</span>
+                    </li>
+                    <li id="" aria-label="" class="list-group-item">
+                        <span class=""><label><input type="checkbox" id="fac-al-all" name="fac-al-all" value="other"></label></span>
+                        <span class="">All locations</span>
+                    </li>
+                </ul>
+                <div>Animal Age</div>
+                <ul class="fc-animal-age list-group">
+                    <li id="" aria-label="" class="list-group-item">
+                        <span class=""><label><input type="checkbox" name="fac-aa-1" value="Baby"></label></span>
+                        <span class="">Baby</span>
+                    </li>
+                    <li id="" aria-label="" class="list-group-item">
+                        <span class=""><label><input type="checkbox" name="fac-aa-2" value="Young"></label></span>
+                        <span class="">Young</span>
+                    </li>
+                    <li id="" aria-label="" class="list-group-item">
+                        <span class=""><label><input type="checkbox" name="fac-aa-3" value="Adult"></label></span>
+                        <span class="">Adult</span>
+                    </li>
+                    <li id="" aria-label="" class="list-group-item">
+                        <span class=""><label><input type="checkbox" name="fac-aa-4" value="Senior"></label></span>
+                        <span class="">Senior</span>
+                    </li>
+                </ul>
+                <div>Animal Gender</div>
+                <ul class="fc-animal-gender list-group">
+                    <li id="" aria-label="" class="list-group-item">
+                        <span class=""><label><input type="checkbox" name="fac-ag-1" value="Male"></label></span>
+                        <span class="">Male</span>
+                    </li>
+                    <li id="" aria-label="" class="list-group-item">
+                        <span class=""><label><input type="checkbox" name="fac-ag-2" value="Female"></label></span>
+                        <span class="">Female</span>
+                    </li>
+                </ul>
+                <div>Animal Availability</div>
+                <ul class="list-group">
+                    <li id="" aria-label="" class="list-group-item">
+                        <span class=""><label><input type="checkbox" name="fac-aav-1" value="true"></label></span>
+                        <span class="">Reserved</span>
+                    </li>
+                    <li id="" aria-label="" class="list-group-item">
+                        <span class=""><label><input type="checkbox" name="fac-aav-2" value="false"></label></span>
+                        <span class="">Available</span>
+                    </li>
+                </ul>
+            </div>
+            <div id="animals-list" class="col-xs-6 col-sm-9 col-md-9 col-lg-9 col-xl-10">
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <%- include('./partials/footer'); %>
+</footer>
+</div>
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head'); %>
+    <script src="/javascripts/donate.js"></script>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+
+<div id="animal-container">
+<header>
+    <%- include('./partials/header'); %>
+</header>
+
+<main>
+    <div class="container search-container">
+        <div class="ad-header"><h1>Donate</h1></div>
+        <div class="row an-row">
+            <div class="col-sm-12 col-md-12 col-lg-12" id="donateanimal">
+                <form id="add-animal-form" onsubmit="addanimal('add-animal-form')" enctype="multipart/form-data" method="POST">
+                    <div class="form-group">
+                        <label for="animalname"><span class="glyphicon glyphicon-pencil"></span> Name *</label>
+                        <input type="text" class="form-control" id="animalname" name="animalname" placeholder="Name of the animal" required>
+                    </div>
+                    <div class="form-group" style="width:48%;float:left;">
+                        <label for="animaltype"><span class="glyphicon glyphicon-knight"></span> Type of animal *</label>
+                        <input type="text" class="form-control" id="animaltype" name="animaltype" placeholder="Enter the type" required>
+                    </div>
+                    <div class="form-group" style="width:48%;float:right;">
+                                <label for="animallocation"><span class="glyphicon glyphicon-map-marker"></span> Location *</label>
+                                <input type="text" class="form-control" id="animallocation" name="animallocation" placeholder="Name of your place" required>
+                            </div>
+                    <div class="form-group" style="width:48%;float:left;">
+                        <label for="animalgender"><span class="glyphicon glyphicon-bookmark"></span> Gender of animal *</label>
+                        <select id="animalgender" name="animalgender" class="form-control dropdown" required>
+                            <option value=""></option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="width:48%;float:right;">
+                                <label for="animalage"><span class="glyphicon glyphicon-time"></span> Age Group *</label>
+                                <select id="animalage" name="animalage" class="form-control dropdown" required>
+                                    <option value=""></option>
+                                    <option value="Baby">Baby</option>
+                                    <option value="Young">Young</option>
+                                    <option value="Adult">Adult</option>
+                                    <option value="Senior">Senior</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="animalphoto"><span class="glyphicon glyphicon-picture"></span> Photo of animal *</label>
+                                <input type="file" class="form-control" id="animalphoto" name="animalphoto" accept="image/*" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="animalkeywords"><span class="glyphicon glyphicon-tags"></span> &nbsp Keywords</label>
+                                <input type="text" class="form-control" id="animalkeywords" name="animalkeywords" pattern="^[a-zA-Z, ]+$" placeholder="Add the tags like breed, personality etc. (comma separated)">
+                            </div>
+                            <div class="form-group">
+                                <label for="animaldescription"><span class="glyphicon glyphicon-book"></span> Description</label>
+                                <textarea class="form-control" id="animaldescription" name="animaldescription" maxlength="10000" rows="3" placeholder="Enter the description (traits, food habits, etc..)"></textarea>
+                            </div>
+                    <div class="donate-btn col-xs-12 col-sm-12 col-md-12 col-lg-12"><button type="submit" aria-label="Submit animal page details" class="add-animal-btn btn btn-block">Upload</button></div>
+                        </form>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="uploadmsg" style="display:none">Animal details stored. Thank you!</div>
+                    </div>
+                </div>
+            </div>
+</main>
+
+<footer>
+    <%- include('./partials/footer'); %>
+</footer>
+</div>
+
+</body>
+</html>

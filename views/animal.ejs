@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head'); %>
+    <script src="/javascripts/animal.js"></script>
+</head>
+<%
+var indx = -1;
+for(var i=0; i<data.length; i++){
+    if(data[i]._id == id)
+        indx = i;
+}
+%>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+
+<div id="animal-container">
+    <header>
+        <%- include('./partials/header'); %>
+    </header>
+    <main>
+        <div class="container" id="animaldetails">
+            <div class="animaloverview">
+                <div class="row animalDetails">
+                <div class="col-sm-7 col-md-8 col-lg-8 col-xl-8">
+                        <div class="itemFrame">
+                            <img id="largeImage" class="img-responsive" src="<%=(data[indx].img).replace('public','')%>" alt="">
+                        </div>
+                        <div class="animalHeading">
+                            <h1><%=data[indx].name%></h1>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-5 col-md-4 col-lg-4 col-xl-4 sr-msg">
+                        <div class="aboutMe">
+                            <h2>About Me</h2>
+                            <ul class="list-group">
+                                <li class="list-group-item">Age Group : <span class="semiboldText"><%=data[indx].age%></span></li>
+                                <li class="list-group-item">Gender : <span class="semiboldText"><%=data[indx].gender%></span></li>
+                                <li class="list-group-item">Location : <span class="semiboldText"><%=data[indx].location%></span></li>
+                                <li class="list-group-item">Additional : <span class="semiboldText"><%=data[indx].keywords%></span></li >
+                            </ul>
+                            <div class="adoptionform">
+                                <%if(data[indx].reserved){%>
+                                    <div id="adopt-btn"><button type="submit" class="adopt-animal-btn btn btn-block" title="Reserved. You may look for similar animals below." disabled>Reserved</button></div>
+                                <%}else{%>
+                                    <div id="adopt-btn"><button aria-label="Open application form" type="submit" class="adopt-animal-btn btn btn-block" data-toggle="modal" data-target="#donatemodal">Adopt Now</button></div>
+                                <%}%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 animalDescription"><%=((data[indx].description) != ""  ? data[indx].description : 'No description available!')%></div>
+                </div>
+
+            </div>
+
+            <hr>
+            <div class="modal fade" id="donatemodal" role="dialog">
+                <div class="modal-dialog">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                            <button aria-label="close the modal" type="button" class="close" data-dismiss="modal">×</button>
+                            <h4 class="modalheadertxt"><span class="bi bi-shop"></span> Adopt</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="adopt-animal-form" onsubmit="adoptanimal()" enctype="multipart/form-data" method="POST" role="form">
+                                <input type="hidden" id="animalid" name="animalid" value="<%=data[indx]._id%>">
+                                <div class="form-group" id="name">
+                                    <label for="fullname"><span class=""></span> Name *</label>
+                                    <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Name" required>
+                                </div>
+                                <div class="form-group" id="gender">
+                                    <label class="main-label">Gender* : </label>
+                                    <input type="radio" id="male" name="gender" value="Male" required>
+                                    <label class="main-label" for="male">Male</label>
+                                    <input type="radio" id="female" name="gender" value="Female" required>
+                                    <label class="main-label" for="female">Female</label>
+                                    <input type="radio" id="other" name="gender" value="other" required>
+                                    <label class="main-label" for="other">Other</label>
+                                </div>
+                                <div class="form-group" id="address">
+                                    <label for="address1">Address* : </label>
+                                    <input type="text" id="address1" name="address1" class="form-control" placeholder="Enter your address here" required>
+                                    <label for="town">Town* : </label>
+                                    <input type="text" id="town" class="form-control" placeholder="Your town" name="town" required>
+                                    <label for="postcode">Postcode* : </label>
+                                    <input type="text" id="postcode" class="form-control" placeholder="Postcode" name="postcode" required>
+                                </div>
+
+                                <div class="form-group" id="email-phone">
+                                    <label class="main-label" id="phone-label" for="phone">Phone: </label>
+                                    <input type="tel" id="phone" class="form-control" placeholder="e.g. +44 7675 403 665" name="phone">
+                                    <label class="main-label" id="email-label" for="email">Email* : </label>
+                                    <input type="email" id="email" class="form-control" placeholder="e.g. youremail@example.co.uk" required name="email">
+                                </div>
+
+                                <!-- age -->
+                                <div class="form-group" id="Age">
+                                    <label class="main-label" for="age">Age of applicant* :</label>
+                                    <input name='age' id="age" class="form-control" type="number" placeholder="Enter age" required>
+                                </div>
+
+                                <!-- why dog? -->
+                                <div class="form-group" id="why">
+                                    <label class="main-label" for="why">Why do you want to adopt a pet?* </label>
+                                    <input type="text" class="form-control" name="why" placeholder="Type here" required>
+                                </div>
+
+                                <!-- pets in household -->
+                                <div class="form-group" id="pets-household">
+                                    <label for="number" class="main-label" id="number-label">How many pets are already in your household?</label>
+                                    <input type="number" class="form-control" name="number" id="number" min="0" max="10" placeholder="0">
+                                </div>
+
+                                <div class="form-group" id="Housing">
+                                    <label for="housing" class="main-label">What type of housing you reside?</label>
+                                    <input type="text" class="form-control" name="housing" id="housing" placeholder="eg: Apt,House,etc">
+                                </div>
+
+                                <button aria-label="Submit the application form" type="submit" class="add-animal-btn btn btn-block">Submit</button>
+                            </form>
+                            <div id="applicationmsg" style="display:none">Details stored. Thank you for the interest!</div>
+                        </div>
+                        <!--<div class="modal-footer">
+                          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
+                            <span class="glyphicon glyphicon-remove"></span> Cancel
+                          </button>
+                          &lt;!&ndash;<p>Need <a href="#">help?</a></p>&ndash;&gt;
+                        </div>-->
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="similaranimals">
+                <div class="row">
+                    <div id="similar-animals-list" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <h2>Similar animals</h2><br>
+                        <%if(data.length == 0){%>
+                            <div>No Similar animals to show!</div>
+                        <%}%>
+                        <%for(var i=0; i<data.length; i++){
+                            if(!data[i]._id.equals(id)){ %>
+                        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3 animal-block" id="<%=data[i]._id%>">
+                            <div class="">
+                                <div class="img-curtain">
+                                    <%if(data[i].reserved != undefined && data[i].reserved){%>
+                                        <div class="animalstatus">Reserved</div>
+                                    <%}%>
+                                    <img tabindex="0" class="img-responsive animalImage" qparams="oid=<%= data[i]._id %>&animaltype=<%= data[i].type %>&location=<%= data[i].location %>&keywords=<%= data[i].keywords %>" onclick="loadanimal()" src="<%=(data[i].img).replace('public','')%>" alt="">
+                                </div>
+                                <ul class="list-group">
+                                    <li class="list-group-item"><div class="animalName" qparams="oid=<%= data[i]._id %>&animaltype=<%= data[i].type %>&location=<%= data[i].location %>&keywords=<%= data[i].keywords %>" onclick="loadanimal()"><%=(data[i].name != undefined ? data[i].name : ' ')%></div></li>
+                                    <li class="list-group-item">Animal Type : <span class="semiboldText"><%=data[i].type%></span></li>
+                                    <li class="list-group-item">Age Group : <span class="semiboldText"><%=data[i].age%></span></li>
+                                    <li class="list-group-item">Gender : <span class="semiboldText"><%=data[i].gender%></span></li>
+                                    <li class="list-group-item">Location : <span class="semiboldText"><%=data[i].location%></span></li>
+                                    <li class="list-group-item">Keywords : <span class="semiboldText"><%=(data[i].keywords != undefined ? data[i].keywords : ' ')%></span></li >
+                                </ul>
+                            </div>
+                        </div>
+                    <% }} %>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div id="comments">
+                <div class="row">
+                    <div id="user-comments-list" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <h2>Comments</h2><br>
+                        <div class="row cmntrow">
+                            <form id="animal-comment-form" onsubmit="submitcomment()" method="POST">
+                                <input type="hidden" name="animal_id" value="<%=data[indx]._id%>">
+                                <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1"><img style="width:100%" src="/images/usericon.jpg"></div>
+                                <div class="col-xs-10 col-sm-10 col-md-11 col-lg-11"><textarea id="usercmnt" name="usercmnt" style="width:100%" rows="2" placeholder="Add a comment"></textarea></div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ><button aria-label="Post your comment" type="submit" class="add-comment-btn btn btn-block">Submit</button></div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <%- include('./partials/footer'); %>
+    </footer>
+</div>
+<script>
+    var a_id = '<%=id%>';
+    //disply the user comments for the animal after document load
+    $(document).ready(function(){
+        //get user comments for the animal.
+        data = {}
+        data.animal_id = a_id;
+        getComments('/usercomments', data)
+        //enable keyup for similar animals
+        enablekeyup();
+    })
+</script>
+</body>
+</html>

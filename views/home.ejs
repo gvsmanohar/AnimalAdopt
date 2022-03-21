@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./partials/head'); %>
+  <script src="/javascripts/home.js"></script>
+</head>
+<body id="myPage" data-spy="scroll" data-offset="50">
+
+<div id="animal-container">
+<header>
+  <%- include('./partials/header'); %>
+</header>
+
+<!-- Container (The ABOUT Section) -->
+<div id="about" class="container text-center">
+  <br>
+  <br>
+  <h3>ANIMAL ADOPT</h3>
+  <p>We love animals!</p>
+  <p>We provide a platform where you can adopt an animal by submitting your interest and also if you are looking for a new home for your pet you can donate an animal to rehome.</p>
+  <br>
+
+</div>
+
+<!-- Container (ADOPT Section) -->
+<div id="adopt" class="bg-1 text-center">
+  <div class="container">
+  <h3>ADOPT</h3>
+  <p><em>Want to adopt a pet!</em></p>
+  <p>We have a collection of household animals which are ready to join their new home. If you are up for a friendly pet and ready to welcome a new member to your family please click on the search option below and find one for your liking.</p>
+  <br>
+  <div class="row">
+    <div class="col-sm-4">
+      <p class="text-center"><strong>Dogs</strong></p><br>
+      <a>
+        <img src="/images/dog1.jpg" class="animal" alt="Dog" width="255" height="255">
+      </a>
+    </div>
+    <div class="col-sm-4">
+      <p class="text-center"><strong>Cats</strong></p><br>
+      <a>
+        <img src="/images/cat1.jpg" class="animal" alt="Cat" width="255" height="255">
+      </a>
+    </div>
+    <div class="col-sm-4">
+      <p class="text-center"><strong>Others</strong></p><br>
+      <a>
+        <img src="/images/others1.jpg" class="animal" alt="Other" width="255" height="255">
+      </a>
+    </div>
+  </div>
+    <div class="row adopt-search">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <button aria-label="Find a pet" class="btn" onclick="location.href='/adopt';">Find a Pet</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Container (The Donate Section) -->
+<div id="donate" class="">
+  <div class="container">
+    <h3 class="text-center">DONATE</h3>
+    <p class="text-center">If you wish to give up your pet or want to add any animal for adoption, you can add it to the animal listing by providing the details.</p>
+    <div class="row text-center donate-submit">
+      <button class="btn" aria-label="Add animal page" id="addanimal" onclick="location.href='/donate';">Add Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- Container (Contact Section) -->
+<div id="contact" class="bg-2">
+  <div class="container">
+  <h3 class="text-center">CONTACT</h3>
+  <br>
+  <div class="row">
+    <div class="col-md-4">
+      <p>Query? Drop a note.</p>
+      <p><span class="bi bi-geo-alt-fill"></span>Sheffield, UK</p>
+      <p><span class="bi bi-phone-fill"></span>Phone: +44 1515151515</p>
+      <p><span class="bi bi-envelope-fill"></span>Email: mail_aa@uos.ac.uk</p>
+      <p class="social-icons">
+        <i class="bi bi-facebook"></i>
+        <i class="bi bi-instagram"></i>
+        <i class="bi bi-twitter"></i>
+        <i class="bi bi-whatsapp"></i>
+        <i class="bi bi-telegram"></i>
+        <i class="bi bi-youtube"></i>
+      </p>
+    </div>
+    <div class="col-md-8">
+      <form id="customer-contact-form" onsubmit="postquery('customer-contact-form','/savequery')" method="post">
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+        </div>
+        <div class="col-sm-6 form-group">
+          <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+        </div>
+      </div>
+      <textarea class="form-control" id="query" name="query" placeholder="Your Query" rows="5" required></textarea>
+      <br>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <button aria-label="Submit your query" class="btn pull-right" type="submit">Send</button>
+        </div>
+      </div>
+      </form>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="contactmsg" style="display:none;text-align: center;">Our Support team will get in touch with you soon. Thank you!</div>
+    </div>
+  </div>
+  <br>
+
+  </div>
+  </div>
+
+<footer>
+  <%- include('./partials/footer'); %>
+</footer>
+</div>
+
+<script>
+$(document).ready(function(){
+  // Initialize Tooltip
+  $('[data-toggle="tooltip"]').tooltip();
+
+  // Add smooth scrolling to all links in navbar + footer link
+  $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 900, function(){
+      });
+    }
+  });
+})
+</script>
+
+</body>
+</html>
