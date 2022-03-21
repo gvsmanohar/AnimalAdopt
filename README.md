@@ -1,7 +1,7 @@
 # AnimalAdopt
 
 # Scenario
-The goal of the assignment is to build an online e-learning platform. The website will need to support
+The goal of the project is to build an online e-learning platform. The website will need to support
 posting images and descriptions of the animals available for adoptions, commenting on the animals and
 searching and browsing the website and apply to adopt an animal.
 The client-server architecture will allow users to:
